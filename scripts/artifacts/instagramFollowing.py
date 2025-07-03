@@ -17,10 +17,9 @@ __artifacts_v2__ = {
 import os
 import datetime
 import json
-import shutil
 from pathlib import Path	
 
-from scripts.ilapfuncs import artifact_processor    
+from scripts.ilapfuncs import artifact_processor
 
 @artifact_processor
 def instagramFollowing(files_found, report_folder, seeker, wrap_text):
