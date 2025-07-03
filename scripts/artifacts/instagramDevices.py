@@ -18,10 +18,13 @@ def get_instagramDevices(files_found, report_folder, seeker, wrap_text):
             data_list =[]
             with open(file_found, "rb") as fp:
                 deserialized = json.load(fp)
-                
+            
             devices = (deserialized['devices_devices'])
             for x in devices:
-                deviceid = (x['string_map_data']['Device ID'].get('value', ''))
+                if 'Device ID' in x['string_map_data']:
+                    deviceid = (x['string_map_data']['Device ID'].get('value', ''))
+                else:
+                    deviceid = ''
                 timestamp = (x['string_map_data']['Last Login'].get('timestamp', ''))
                 if timestamp > 0:
                     timestamp = (datetime.datetime.fromtimestamp(int(timestamp)).strftime('%Y-%m-%d %H:%M:%S'))
