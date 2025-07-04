@@ -41,7 +41,7 @@ def instagramFollowing(files_found, report_folder, seeker, wrap_text):
                 if timestamp > 0:
                     timestamp = (datetime.datetime.fromtimestamp(int(timestamp)).strftime('%Y-%m-%d %H:%M:%S'))
                 
-                data_list.append((timestamp, value, href, filename))
+                data_list.append((timestamp, value, href, file_found))
     
-    data_headers = (('Timestamp', 'datetime'),'Following', 'Profile URL', 'File Source')
+    data_headers = (('Timestamp', 'datetime'),'Following', 'Profile URL', 'Source File')
     return data_headers, data_list, 'See source path(s) below'

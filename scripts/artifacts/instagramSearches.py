@@ -42,5 +42,5 @@ def instagramSearches(files_found, report_folder, seeker, wrap_text):
                 
                 data_list.append((timestamp, search))
     
-    data_headers = ('Timestamp', 'Search')
+    data_headers = (('Timestamp','datetime'), 'Search')
     return data_headers, data_list, file_found

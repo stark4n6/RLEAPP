@@ -1,13 +1,29 @@
+__artifacts_v2__ = {
+    "instagramDevices": {  # This should match the function name exactly
+        "name": "Instagram Archive - Devices",
+        "description": "Parses device information the Instagram account was used on",
+        "author": "@AlexisBrignoni",
+        "creation_date": "2021-08-30",
+        "last_update_date": "2025-07-03",
+        "requirements": "none",
+        "category": "Instagram Archive",
+        "notes": "",
+        "paths": ('*/device_information/devices.json'),
+        "output_types": "standard",  # or ["html", "tsv", "timeline", "lava"]
+        "artifact_icon": "instagram",
+    }
+}
+
 import os
 import datetime
 import json
-import shutil
 from pathlib import Path	
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, kmlgen, is_platform_windows
+from scripts.ilapfuncs import artifact_processor
 
-def get_instagramDevices(files_found, report_folder, seeker, wrap_text):
+@artifact_processor
+def instagramDevices(files_found, report_folder, seeker, wrap_text):
     
     for file_found in files_found:
         file_found = str(file_found)
@@ -31,28 +47,6 @@ def get_instagramDevices(files_found, report_folder, seeker, wrap_text):
                 useragent = (x['string_map_data']['User Agent'].get('value', ''))
                     
                 data_list.append((timestamp, deviceid, useragent))
-                    
-                
-            if data_list:
-                report = ArtifactHtmlReport('Instagram Archive - Devices')
-                report.start_artifact_report(report_folder, 'Instagram Archive - Devices')
-                report.add_script()
-                data_headers = ('Last Login Timestamp', 'Device ID', 'User Agent')
-                report.write_artifact_data_table(data_headers, data_list, file_found)
-                report.end_artifact_report()
-                
-                tsvname = f'Instagram Archive - Devices'
-                tsv(report_folder, data_headers, data_list, tsvname)
-                
-                tlactivity = f'Instagram Archive - Devices'
-                timeline(report_folder, tlactivity, data_list, data_headers)
-                
-            else:
-                logfunc('No Instagram Archive - Devices data available')
-                
-__artifacts__ = {
-        "instagramDevices": (
-            "Instagram Archive",
-            ('*/device_information/devices.json'),
-            get_instagramDevices)
-}
+    
+    data_headers = ('Last Login Timestamp', 'Device ID', 'User Agent')
+    return data_headers, data_list, file_found

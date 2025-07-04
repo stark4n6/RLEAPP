@@ -43,5 +43,5 @@ def instagramSavedposts(files_found, report_folder, seeker, wrap_text):
                     
                 data_list.append((timestamp, title, href, filename))
     
-    data_headers = (('Timestamp', 'datetime'),'Title', 'URL', 'File Source')
+    data_headers = (('Timestamp', 'datetime'),'Profile Name', 'URL', 'File Source')
     return data_headers, data_list, 'See source path(s) below'
