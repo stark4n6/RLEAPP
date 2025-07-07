@@ -22,7 +22,7 @@ from pathlib import Path
 from scripts.ilapfuncs import artifact_processor
 
 @artifact_processor
-def get_instagramFollowers(files_found, report_folder, seeker, wrap_text):
+def instagramFollowers(files_found, report_folder, seeker, wrap_text):
     data_list = []
     for file_found in files_found:
         file_found = str(file_found)
