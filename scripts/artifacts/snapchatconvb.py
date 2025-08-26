@@ -11,7 +11,7 @@ __artifacts_v2__ = {
         "paths": ('*/conversations.csv','*.jpeg','*.unknown','*.mp4','*.png'),
         "output_types": "none",
         "function": "snapchatconvb",
-        "output_types": "lava",
+        "output_types": ["html", "tsv", "timeline", "lava"],
         "artifact_icon": "image",
     }
 }
@@ -89,7 +89,10 @@ def snapchatconvb(files_found, report_folder, seeker, wrap_text):
             remaining_headers = [col for i, col in enumerate(headers) if i not in important_indices]
             reordered_headers = important_headers + remaining_headers
             reordered_headers[0] = ('Timestamp','datetime')
-            reordered_headers[4] = ('Images','media')
+            reordered_headers[4] = ('Media')
+            reordered_headers.insert(5, ('Found Media', 'media'))
+            for row in rows:
+                row.insert(5, '')
             
             
             for row in rows:
@@ -99,11 +102,11 @@ def snapchatconvb(files_found, report_folder, seeker, wrap_text):
                             media_path = Path(tentative_media)
                             filenamem = media_path.name 
                             media_item = check_in_media(tentative_media,filenamem)
-                            row[4] = media_item
+                            row[5] = media_item
                             break
-            for row in rows:
-                logfunc(str(row))
-                            
+
+            
+            
         return reordered_headers,rows,file_found
         
             
